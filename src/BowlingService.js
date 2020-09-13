@@ -32,13 +32,24 @@ export default class BowlingService {
         }
     }
 
+    goToNextRoll() {
+        const currScoreArr = [...this.currentframeScore]
+        this.hitsArray.push(currScoreArr)
+        this.isFirstRollofFrame = false;
+        console.log(this.hitsArray)
+        console.log(this.isFirstRollofFrame)
+    }
+
     goExtraRoll(hits) {
         this.extraArray.push(hits)
     }
 
     getCurrentScore() {
+        console.log("getCurrentScore", this.hitsArray)
+        const length = this.hitsArray.length > 10 ? 10 : this.hitsArray.length
+
         this.hitsArray.push(this.extraArray)
-        return getTotalScore(this.hitsArray, this.totalFrameRound)
+        return getTotalScore(this.hitsArray, length)
     }
 
     goToNextFrame() {
@@ -50,14 +61,16 @@ export default class BowlingService {
             this.extraRoll = 2
         }
 
-        this.hitsArray.push(this.currentframeScore)
+        if (!this.isFirstRollofFrame) {
+            this.hitsArray.pop()
+        }
+
+        const currScoreArr = [...this.currentframeScore]
+        this.hitsArray.push(currScoreArr)
+
         this.currentframeScore = [];
         this.isFirstRollofFrame = true;
         this.currentRound++
-    }
-
-    goToNextRoll() {
-        this.isFirstRollofFrame = false;
     }
 
     outputScore() {

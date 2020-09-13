@@ -1,7 +1,22 @@
 ## Install
+### requirement
 
+install Node latest version [here](https://nodejs.org/en/download/)
+
+go to downloaded folder
+```bash
+# init project using npm
+$ npm install
+
+# or
+# init project by yarn
+$ yarn
+```
 
 ## How to run
+```
+$ yarn dev
+```
 
 
 ## Optional requirement:

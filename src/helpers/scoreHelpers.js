@@ -19,13 +19,27 @@ export const getFrameScore = (frameScoresArr, currIndex) => {
 }
 
 export const getNextRollsScore = (arrayOfFrameScore, curr, lengthOfRoll) => {
+    if (isIndexNotExist(arrayOfFrameScore, curr + 1)) {
+        return 0
+    }
+
     if (arrayOfFrameScore[curr + 1].length === lengthOfRoll) {
         return sumFromArray(arrayOfFrameScore[curr + 1])
     } else if (lengthOfRoll === 1) {
+        if (isIndexNotExist(arrayOfFrameScore, curr + 1)) {
+            return 0;
+        }
         return arrayOfFrameScore[curr + 1][0];
     } else {
+        if (isIndexNotExist(arrayOfFrameScore, curr + 2)) {
+            return sumFromArray(arrayOfFrameScore[curr + 1])
+        }
         return sumFromArray(arrayOfFrameScore[curr + 1]) + arrayOfFrameScore[curr + 2][0];
     }
+}
+
+const isIndexNotExist = (arr, i) => {
+    return !arr[i] || arr[i].length === 0
 }
 
 export const sumFromArray = (arr) => {

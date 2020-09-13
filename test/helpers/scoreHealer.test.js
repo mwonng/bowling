@@ -35,11 +35,17 @@ describe("scoreHelper test", () => {
     });
 
 
-    it("getFrameScore() should return current index's sume", () => {
+    it("getFrameScore() should return current index's sum", () => {
         const pinArray = [[10], [6, 4], [1, 6], [3, 6]];
         expect(getFrameScore(pinArray, 0)).toBe(20);
         expect(getFrameScore(pinArray, 1)).toBe(11);
         expect(getFrameScore(pinArray, 2)).toBe(7);
         expect(getFrameScore(pinArray, 3)).toBe(9);
+    });
+
+    it("getFrameScore() should return current index's sum if not finished", () => {
+        const pinArray = [[10], [4, 6]];
+        expect(getFrameScore(pinArray, 0)).toBe(20);
+        expect(getFrameScore(pinArray, 1)).toBe(10);
     });
 });

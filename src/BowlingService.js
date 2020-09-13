@@ -6,17 +6,12 @@ export default class BowlingService {
         this.isFirstRollofFrame = true;
         this.currentRound = 1;
         this.currentframeScore = [];
-        this.extraRoll = 0;
         this.extraArray = [];
     }
 
     roll(pinsHit) {
         if (this.currentRound > this.totalFrameRound) {
             this.goExtraRoll(pinsHit);
-        }
-
-        if (this.extraRoll === 0 && this.currentRound > this.totalFrameRound) {
-            this.currentframeScore.push(pinsHit);
         }
 
         if (this.isFirstRollofFrame && this.currentRound <= this.totalFrameRound) {
@@ -49,14 +44,6 @@ export default class BowlingService {
     }
 
     goToNextFrame() {
-        if (this.currentRound === this.totalFrameRound && sumFromArray(this.currentframeScore) === 10) {
-            // one more
-            this.extraRoll = 1
-        } else if (this.currentRound === this.totalFrameRound && this.currentframeScore.length === 1) {
-            // two more
-            this.extraRoll = 2
-        }
-
         if (!this.isFirstRollofFrame) {
             this.hitsArray.pop()
         }
@@ -75,9 +62,5 @@ export default class BowlingService {
 
     getCurrentRound() {
         return this.currentRound;
-    }
-
-    isLastRoll() {
-        return this.currentRound === this.totalFrameRound
     }
 }

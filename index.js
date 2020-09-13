@@ -18,7 +18,6 @@ function waitForUserInput() {
     rl.question(`Roll ${i} hits: `, function (answer) {
         if (answer.toLowerCase() === "exit" || i > 12) {
             rl.close();
-            //TODO: validate here
             rollList.forEach(pins => {
                 Bowling.roll(pins);
             });

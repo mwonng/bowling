@@ -6,16 +6,20 @@ export default class BowlingService {
         this.isFirstRollofFrame = true;
         this.currentRound = 1;
         this.currentframeScore = [];
-        this.extraRoll = 0
+        this.extraRoll = 0;
+        this.extraArray = [];
     }
 
     roll(pinsHit) {
-        // console.log("running pins hit", pinsHit)
-        if (this.isExtraRound) {
+        if (this.currentRound > this.totalFrameRound) {
+            this.goExtraRoll(pinsHit);
+        }
+
+        if (this.extraRoll === 0 && this.currentRound > this.totalFrameRound) {
             this.currentframeScore.push(pinsHit);
         }
-        if (this.isFirstRollofFrame) {
-            // console.log("this.isFirstRollofFrame TRUE", pinsHit)
+
+        if (this.isFirstRollofFrame && this.currentRound <= this.totalFrameRound) {
             this.currentframeScore.push(pinsHit);
             if (pinsHit === 10) {
                 this.goToNextFrame()
@@ -23,16 +27,18 @@ export default class BowlingService {
                 this.goToNextRoll();
             }
         } else if (this.currentRound <= this.totalFrameRound) {
-            // console.log("this.isFirstRollofFrame FALSE", pinsHit)
             this.currentframeScore.push(pinsHit);
             this.goToNextFrame()
         }
-        console.log("current round ->", this.currentRound)
+    }
+
+    goExtraRoll(hits) {
+        this.extraArray.push(hits)
     }
 
     getCurrentScore() {
-        console.log("getCurrentScore() ->", getTotalScore(this.pinsHit))
-        return getTotalScore(this.pinsHit)
+        this.hitsArray.push(this.extraArray)
+        return getTotalScore(this.hitsArray, this.totalFrameRound)
     }
 
     goToNextFrame() {
@@ -55,8 +61,7 @@ export default class BowlingService {
     }
 
     outputScore() {
-        console.log(this.hitsArray);
-        // console.log("getCurrentScore() ->", getTotalScore(this.hitsArray))
+        console.log("Total score is:", this.getCurrentScore());
     }
 
     getCurrentRound() {
@@ -64,6 +69,6 @@ export default class BowlingService {
     }
 
     isLastRoll() {
-        return this.currentRound >= this.totalFrameRound
+        return this.currentRound === this.totalFrameRound
     }
 }

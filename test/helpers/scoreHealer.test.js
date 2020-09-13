@@ -8,20 +8,32 @@ describe("scoreHelper test", () => {
     });
 
     it("getTotalScore() should return sum of paras", () => {
-        expect(getTotalScore([[2, 5], [2, 4]])).toBe(13);
+        expect(getTotalScore([[2, 5], [2, 4], [2, 1]], 3)).toBe(16);
     });
 
     it("getTotalScore() should sum next two frame if it is strike", () => {
-        expect(getTotalScore([[10], [2, 4], [2, 6]])).toBe(38);
+        expect(getTotalScore([[10], [2, 4], [2, 6]], 3)).toBe(30);
+        expect(getTotalScore([[10], [6, 4], [1, 6], [3, 6]], 4)).toBe(47);
+
     });
 
-    it("getTotalScore() should sum next frame if it is clear", () => {
-        expect(getTotalScore([[2, 3], [6, 4], [1, 6], [3, 6]])).toBe(38);
+    it("getTotalScore() should sum next frame if it is spare", () => {
+        expect(getTotalScore([[2, 3], [6, 4], [1, 6], [3, 6]], 4)).toBe(32);
     });
 
-    it("getTotalScore() should sum next two frame if it is strike", () => {
-        expect(getTotalScore([[10], [6, 4], [1, 6], [3, 6]])).toBe(60);
+    it("getTotalScore() should sum full strike", () => {
+        expect(getTotalScore([[10], [10], [10], [10], [10], [10], [10], [10], [10], [10], [10], [10]])).toBe(300);
     });
+
+    it("getTotalScore() should sum extre one if last one is spare", () => {
+        expect(getTotalScore([[10], [10], [10], [10], [10], [10], [10], [10], [10], [10], [6, 4]])).toBe(286);
+        expect(getTotalScore([[10], [10], [10], [10], [10], [10], [10], [10], [10], [6, 4], [5]])).toBe(271);
+    });
+
+    it("getTotalScore() should not sum extra if last one is not spare", () => {
+        expect(getTotalScore([[10], [10], [10], [10], [10], [10], [10], [10], [10], [6, 3]])).toBe(264);
+    });
+
 
     it("getFrameScore() should return current index's sume", () => {
         const pinArray = [[10], [6, 4], [1, 6], [3, 6]];

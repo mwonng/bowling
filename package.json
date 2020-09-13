@@ -1,0 +1,21 @@
+{
+    "name": "bowling",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "dependencies": {},
+    "devDependencies": {
+        "@babel/preset-env": "^7.11.5",
+        "babel-jest": "^26.3.0",
+        "jest": "^26.4.2"
+    },
+    "scripts": {
+        "dev": "node index.js",
+        "test": "jest --config ./jest.config.json",
+        "test:watch": "jest --watch"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

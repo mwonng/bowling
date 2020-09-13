@@ -36,8 +36,6 @@ export default class BowlingService {
         const currScoreArr = [...this.currentframeScore]
         this.hitsArray.push(currScoreArr)
         this.isFirstRollofFrame = false;
-        console.log(this.hitsArray)
-        console.log(this.isFirstRollofFrame)
     }
 
     goExtraRoll(hits) {
@@ -45,18 +43,16 @@ export default class BowlingService {
     }
 
     getCurrentScore() {
-        console.log("getCurrentScore", this.hitsArray)
         const length = this.hitsArray.length > 10 ? 10 : this.hitsArray.length
-
         this.hitsArray.push(this.extraArray)
         return getTotalScore(this.hitsArray, length)
     }
 
     goToNextFrame() {
-        if (this.currentRound === 10 && sumFromArray(this.currentframeScore) === 10) {
+        if (this.currentRound === this.totalFrameRound && sumFromArray(this.currentframeScore) === 10) {
             // one more
             this.extraRoll = 1
-        } else if (this.currentRound === 10 && this.currentframeScore.length === 1) {
+        } else if (this.currentRound === this.totalFrameRound && this.currentframeScore.length === 1) {
             // two more
             this.extraRoll = 2
         }
